@@ -1,0 +1,15 @@
+<h2><%= t("session.edit_session") %></h2>
+<%= form_for :session, url: session_path(@session), method: :patch do |f| %>
+  <% if(@session.errors.any?) %>
+    <% @session.errors.full_messages.each do |msg| %>
+      <div class="alert alert-danger"><%= msg %></div>
+    <% end %>
+  <% end %>
+  <p>
+    <%= t("session.data") %><br>
+    <%= f.text_field(:data, {:class => 'form-control'}) %>
+  </p>
+  <p>
+    <%= f.submit({:class => 'btn btn-success'}) %>
+  </p>
+<% end %>

@@ -1,0 +1,22 @@
+<h1><%= t("page.all_session") %></h1>
+<table class="table">
+  <thead>
+  <tr>
+    <th scope="col">#</th>
+    <th scope="col"><%= t("session.date") %></th>
+    <th scope="col"></th>
+  </tr>
+  </thead>
+  <tbody>
+  <% @session.each do |ss| %>
+    <tr>
+      <th scope="row"><%= ss.id %></th>
+      <td><%= ss.data %></td>
+      <td><%= link_to "Info", session_path(ss.id), :class => 'btn btn-outline-secondary' %></td>
+      <td><%= button_to "edit", edit_session_path(ss.id),:method =>:get, :class => 'btn btn-outline-warning' %></td>
+      <td><%= button_to "Delete", session_path(ss), method: :delete, data: { confirm: t("page.sure") }, :class => 'btn btn-outline-danger' %></td>
+    </tr>
+  <% end %>
+  </tbody>
+</table>
+<%= link_to t("page.create_session"), new_session_path, :class => 'float-end btn btn-success' %></td>

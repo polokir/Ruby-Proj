@@ -1,0 +1,71 @@
+<h1><%= @session.data %>
+  <span class="float-end" style="display: flex; gap: 10px;">
+    <%= button_to "edit", edit_session_path(@session.id),:method =>:get, :class => 'btn btn-outline-warning' %>
+    <%= button_to "delete", session_path(@session), method: :delete, data: { confirm: t("page.sure") }, :class => 'btn btn-outline-danger' %>
+</span>
+</h1>
+<h4 class="mt-5"><%= t("page.all_student") %></h4>
+<table class="table mt-2 mb-5">
+  <thead>
+  <tr>
+    <th scope="col">#</th>
+    <th scope="col"><%= t('students.surname') %></th>
+    <th scope="col"><%= t('students.group') %></th>
+    <th scope="col"><%= t('students.geometryMark') %></th>
+    <th scope="col"><%= t('students.algebraMark') %></th>
+    <th scope="col"><%= t('students.infoMark') %></th>
+    <th scope="col"></th>
+
+  </tr>
+  </thead>
+  <tbody>
+  <% @session.students.each do |st| %>
+    <tr>
+      <th scope="row"><%= st.id %></th>
+      <td><%= st.surname %></td>
+      <td><%= st.group %></td>
+      <td><%= st.geometryMark %></td>
+      <td><%= st.algebraMark %></td>
+      <td><%= st.infoMark %></td>
+      <td><%= button_to "edit", edit_session_student_path(st.session_id,st.id), :class => 'btn btn-outline-warning' %>
+        <%= button_to "delete", session_student_path(st), method: :delete, data: { confirm: "page.sure" }, :class => 'btn btn-outline-danger' %></td>
+    </tr>
+  <% end %>
+  </tbody>
+</table>
+<h4 style="margin-top: 100px;"><%= t("page.new_student")%></h4>
+<th>
+  <%= form_for([@session, @session.students.build]) do |f| %>
+    <% if (@student.errors.any?) %>
+      <% @student.errors.full_messages.each do |msg| %>
+        <div class="alert alert-danger"><%= msg %></div>
+      <% end %>
+    <% end %>
+
+    <p>
+      <%= t("students.surname")%><br>
+      <%= f.text_field(:surname, { :class => 'form-control' }) %>
+    </p>
+
+    <p>
+      <%= t("students.group")%><br>
+      <%= f.text_field(:group, { :class => 'form-control' }) %>
+    </p>
+    <p>
+      <%= t("students.geometryMark")%><br>
+      <%= f.text_field(:geometryMark, { :class => 'form-control' }) %>
+    </p>
+    <p>
+      <%= t("students.algebraMark")%><br>
+      <%= f.text_field(:algebraMark, { :class => 'form-control' }) %>
+    </p>
+
+    <p>
+      <%= t("students.infoMark")%><br>
+      <%= f.text_field(:infoMark, { :class => 'form-control' }) %>
+    </p>
+    <p>
+      <%= f.submit({ :class => 'btn btn-success' }) %>
+    </p>
+  <% end %>
+</th>
